@@ -1,0 +1,69 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+<div class="container">
+  <div class="row">
+       <table class="table table-sm">
+         <thead>
+         <th>Index</th>
+         <th>Image</th>
+         <th>Name</th>
+         <th>Price</th>
+         <th>Quantity</th>
+         <th>Subtotal</th>
+         <th>Update</th>
+         <th>Delete</th>
+         </thead>
+         <tbody>
+         {% for key,product in session['Shoppingcart'].items() %}
+         {% with messages = get_flashed_messages() %}
+            {% if messages: %}
+            {% for message in messages: %}
+            <p style="color: #ed1f9b;"><em>{{ message }}</em></p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+         <tr>
+           <td>{{ loop.index}}</td>
+           <td><img src="{{url_for('static',filename='images/' + product.image)}}" width="50" height="45"></td>
+           <td>{{ product.name }}</td>
+
+           <form action="{{url_for('updatecart', code=key)}}" method="post">
+
+           <td>$ {{ product.price }}</td>
+           <td><input type="number" name='quantity' min='1' max='10' value='{{product.quantity}}'></td>
+           {% set subtotal = product.quantity|int * product.price|float %}
+           <td>{{ "$ {:,.2f}".format(subtotal) }}</td>
+           <td><button type="submit" class="btn btn-sm btn-info">Update</button></td>
+           </form>
+           <td><a href="{{url_for('delete_item', id=key)}}"><i class="fa-solid fa-trash"></i></a></td>
+         </tr>
+         {% endfor %}
+         <tr>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+         </tr>
+         </tbody>
+       </table>
+    <h3 style="text-align: right;">Total: {{"$ {:,.2f}".format(total) }}</h3>
+   <form action="{{url_for('payment')}}" method="POST">
+       {% set amount = total %}
+  <script
+    src="https://checkout.stripe.com/checkout.js"
+    class="stripe-button"
+    data-key="pk_test_51NNbJzJOl87lc95Gsi3ZfrtHMZH3teFPXsM26oz1z1JCHIswKEdEXKFVB4dTR5BYi3Zv5DNSo0SsA8ugL4HwxNkI00Mk0Ffcj0"
+    data-name="Little Green Heroes"
+    data-description="Organic Microgreens"
+    data-amount='{{total * 100}}'
+    data-currency="USD">
+  </script>
+</form>
+    <a  href="{{url_for('onlineshop')}}">Continue shopping</a>
+    <a href="{{url_for('clearcart')}}" style="width:100px; text-align: center;">Clear cart</a>
+
+</div>
+  {% include 'footer.html'%}
+

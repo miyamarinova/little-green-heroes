@@ -1,0 +1,28 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6" id="b_image">
+      <img src="{{url_for('static',filename='images/' + product.image_1) }}" width="400" height="350">
+
+    </div>
+    <div class="col-md-6">
+      <h4>Product name: {{product.name}}</h4>
+
+      <b>Product Description</b>
+      <p>{{product.desc}}</p>
+        <hr>
+        <h4 style="text-align: right">Price: ${{ product.price }}</h4>
+
+        <form action="{{url_for('AddCart')}}" method="post" style="text-align: center">
+            <input type="hidden" name="product_id" value="{{product.id}}">
+            <hr>
+            <label form="">Quantity:</label>
+            <input type="number" name="quantity" id="" value="1" min="1">
+            <button type="submit" class="btn btn-sm btn-warning">Add to cart</button>
+        </form>
+
+    </div>
+  </div>
+</div>

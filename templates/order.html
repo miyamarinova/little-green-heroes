@@ -1,0 +1,83 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+{% include '_messages.html'%}
+<div class="container reveal">
+  <div class="row">
+       <table class="table table-sm">
+         Order ID: {{orders.invoice}}
+         <br>
+         Status: {{orders.status}}
+         <br>
+         Customer: {{customer.name}}
+         <br>
+           Customer email: {{customer.email}}
+
+         <thead>
+         <th>Index</th>
+
+         <th>Name</th>
+         <th>Price</th>
+         <th>Quantity</th>
+         <th>Subtotal</th>
+         </thead>
+         <tbody>
+         {% for key,product in orders.orders.items() %}
+         {% with messages = get_flashed_messages() %}
+            {% if messages: %}
+            {% for message in messages: %}
+            <p style="color: #ed1f9b;"><em>{{ message }}</em></p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+         <tr>
+           <td>{{ loop.index}}</td>
+]           <td>{{ product.name }}</td>
+
+           <form action="{{url_for('updatecart', code=key)}}" method="post">
+
+           <td>$ {{ product.price }}</td>
+           <td><input type="number" name='quantity' min='1' max='10' value='{{product.quantity}}'></td>
+           {% set subtotal = product.quantity|int * product.price|float %}
+           <td>${{ subtotal }}</td>
+           </form>
+
+         </tr>
+         {% endfor %}
+         <tr>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+         </tr>
+         </tbody>
+       </table>
+      <table class="table table-sm">
+          <tr>
+              <td>
+                  {% if orders.status == 'Paid' %}
+                  {% else %}
+
+                  <form action="{{url_for('payment')}}" method="POST">
+                  {% set amount = total %}
+               <input type="hidden" name="amount" value="{{amount}}">
+               <input type="hidden" name="invoice" value="{{orders.invoice}}">
+              <script
+                src="https://checkout.stripe.com/checkout.js"
+                class="stripe-button"
+                data-key="pk_test_51NNbJzJOl87lc95Gsi3ZfrtHMZH3teFPXsM26oz1z1JCHIswKEdEXKFVB4dTR5BYi3Zv5DNSo0SsA8ugL4HwxNkI00Mk0Ffcj0"
+                data-name="Little Green Heroes"
+                data-description="Organic Microgreens"
+                data-amount='{{amount * 100}}'
+                data-currency="USD">
+              </script>
+                  </form>
+                  {% endif %}
+              </td>
+          </tr>
+      </table>
+    <h3 style="text-align: right;">$ {{amount}}</h3>
+    <a  href="{{url_for('onlineshop')}}">Continue shopping</a>
+</div>
+  { % include 'footer.html' %}

@@ -1,0 +1,26 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+{% from "_formhelpers.html" import render_field %}
+{% include '_messages.html' %}
+
+
+
+
+<div class="cont-contactBtn">
+					<div class="cont-flip reveal">
+						<div class="front">
+							<h1 class="bg-info text-center" style="font-family: 'Amatic SC', cursive;
+font-family: 'Concert One', cursive;">Log In</h1>
+						</div>
+						<div class="row">
+							<form action="" method="post">
+        			{{ form.csrf_token }}
+							<div class="col-md-6" style="margin-left: 80px;">
+                				{{ render_field(form.email, class="form-control") }}
+                				{{ render_field(form.password, class="form-control") }}
+								{{ form.log_in(class='btn btn-sm btn-info float-right') }}
+
+							</div></form>
+						</div>
+					</div>
+{% include 'footer.html' %}

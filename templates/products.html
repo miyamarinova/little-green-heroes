@@ -1,0 +1,29 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container reveal">
+    <div class="row">
+            {% for product in products %}
+            <div class="col-md-3 mt-3">
+                <div class="card">
+                     <img src="{{ url_for('static', filename='images/' + product.image_1)}}" height="200">
+                    <div class="card-body">
+                        <h5 class="text-cent">{{ product.name }}</h5>
+                        <p class="text-center">Price ${{ product.price }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('single_page', id=product.id) }}" class="float-left btn btn-sm btn-primary"> Details </a>
+                         <form action="{{url_for('AddCart')}}" method="post">
+                             <input type="hidden" name="product_id" value="{{product.id}}">
+                            <button type="submit" class="btn btn-sm btn-warning float-right">Add to cart</button>
+                             <input type="hidden" name="quantity" id="" value="1" min="1" max="20">
+
+        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% include 'footer.html' %}

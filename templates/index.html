@@ -1,0 +1,65 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+{% include '_messages.html' %}
+
+
+<body>
+
+<div id="carouselExampleIndicators" class="carousel slide reveal" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="static/images/home-page-1.png" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <video class="d-block w-100" autoplay loop muted><source src="static/images/home-page-2.mp4" alt="Second slide" type="video/mp4" /></video>
+    </div>
+    <div class="carousel-item">
+      <video class="d-block w-100" autoplay loop muted><source src="static/images/home-page-3.mp4" alt="Third slide" type="video/mp4" /></video>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!--END of HOME PAGE-->
+<div class="" style="height: 100px; background: green;"></div>
+
+<!--START of ABOUT US PAGE-->
+<section id="about-us" class="container">
+<div class="container reveal">
+  <h1>About Us</h1>
+<div class="row">
+    <div class="column lg-4" style="display:inline;">
+        <p> Dear Friends,
+            We are Martin and Maria! Our green family business was born in 2025, after years of dreams and shared love.
+            We began grow microgreens for our family and friends as a hobby. Now, we are proud that we provide South-East Bulgaria with fresh, local, and delicious microgreens year round.
+            Our small greenhouse farm is located in Roza, Yambol municipality.
+            You are more than welcome to visit, meet and talk with us! </p>
+    <div class="column lg-2" ><img class="home-pic"  style="border-radius: 30%;;margin-top: 20px; width:33%;"
+     src="{{ url_for('static', filename='images/about_us1.jpeg')}}"
+     alt="MicroGreens"><img class="home-pic" style="border-radius: 30%;;margin-top: 20px; width:33%;"
+     src="{{ url_for('static', filename='images/about_us2.jpeg')}}"
+     alt="MicroGreens"><img class="home-pic" style="border-radius: 30%;margin-top: 20px; width:33%;;"
+     src="{{ url_for('static', filename='images/about_us3.jpeg')}}"
+     alt="MicroGreens">
+    </div>
+</div>
+</div></div>
+</section>
+<div style="height: 100px; background: green;"></div>
+
+{% include 'footer.html' %}
+
+</body>
+
+
